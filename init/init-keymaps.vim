@@ -15,6 +15,30 @@
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
+"----------------------------------------------------------------------
+" INSERT 模式下 map jk to ESC
+"----------------------------------------------------------------------
+inoremap jk <Esc>
+
+"----------------------------------------------------------------------
+" 开关行号显示的方式 <slient><leader><C-l>
+"----------------------------------------------------------------------
+" setglobal relativenumber
+autocmd WinEnter * :setlocal relativenumber
+autocmd WinLeave,FocusLost * :setlocal number
+autocmd InsertEnter * :setlocal number
+autocmd InsertLeave * :setlocal relativenumber
+
+function! g:ToggleNuMode()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+map <silent><leader><C-l> :call g:ToggleNuMode()<CR>
+
 
 "----------------------------------------------------------------------
 " INSERT 模式下使用 EMACS 键位
