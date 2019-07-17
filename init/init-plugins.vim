@@ -41,6 +41,8 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 " 默认插件 
 "----------------------------------------------------------------------
 
+Plug 'ycm-core/YouCompleteMe'
+
 " 全文快速移动，<leader><leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion'
 
