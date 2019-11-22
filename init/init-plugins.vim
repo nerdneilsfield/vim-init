@@ -40,8 +40,17 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 "----------------------------------------------------------------------
 " 默认插件 
 "----------------------------------------------------------------------
-
-Plug 'ycm-core/YouCompleteMe'
+" 使用 deoplete 来作为默认的不全插件
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+set runtimepath+=~/.vim/bundles/deoplete.nvim/
+let g:deoplete#enable_at_startup = 1
+" Plug 'ycm-core/YouCompleteMe'
 
 " 全文快速移动，<leader><leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion'
@@ -403,6 +412,50 @@ if index(g:bundle_group, 'ale') >= 0
 	endif
 endif
 
+"----------------------------------------------------------------------
+" tabNine: tabNine 客户端
+"----------------------------------------------------------------------
+if has('win32') || has('win64')
+  Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
+else
+  Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+endif
+call deoplete#custom#source('deoplete-tabnine', 'rank', 999)
+"----------------------------------------------------------------------
+" ale: Vim LSP 客户端
+"----------------------------------------------------------------------
+"Plug 'dense-analysis/ale'
+"
+"call deoplete#custom#option('sources', {
+"\ '_': ['ale', ],
+"\})
+"
+"let g:ale_cpp_ccls_init_options = {
+"\   'cache': {
+"\       'directory': '/tmp/ccls/cache'
+"\   }
+"\ }
+"----------------------------------------------------------------------
+" deoplete-vim-lsp: vim lsp for deoplete
+"----------------------------------------------------------------------
+
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
+Plug 'lighttiger2505/deoplete-vim-lsp'
+
+call deoplete#custom#source('deoplete-vim-lsp', 'rank', 400)
+
+" Register ccls C++ lanuage server.
+if (executable('ccls'))
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'ccls',
+      \ 'cmd': {server_info->['ccls']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
+endif
 
 "----------------------------------------------------------------------
 " echodoc：搭配 YCM/deoplete 在底部显示函数参数
@@ -532,82 +585,83 @@ call plug#end()
 "----------------------------------------------------------------------
 
 " 禁用预览功能：扰乱视听
-let g:ycm_add_preview_to_completeopt = 0
+"let g:ycm_add_preview_to_completeopt = 0
 
 " 禁用诊断功能：我们用前面更好用的 ALE 代替
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone,noselect
+"let g:ycm_show_diagnostics_ui = 0
+"let g:ycm_server_log_level = 'info'
+"let g:ycm_min_num_identifier_candidate_chars = 2
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_complete_in_strings=1
+"let g:ycm_key_invoke_completion = '<c-z>'
+"set completeopt=menu,menuone,noselect
 
 " noremap <c-z> <NOP>
 
 " 两个字符自动触发语义补全
-let g:ycm_semantic_triggers =  {
+"let g:ycm_semantic_triggers =  {
 			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
 			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
+		\ }
 
 
 "----------------------------------------------------------------------
 " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
 "----------------------------------------------------------------------
-let g:ycm_filetype_whitelist = { 
-			\ "c":1,
-			\ "cpp":1, 
-			\ "objc":1,
-			\ "objcpp":1,
-			\ "python":1,
-			\ "java":1,
-			\ "javascript":1,
-			\ "coffee":1,
-			\ "vim":1, 
-			\ "go":1,
-			\ "cs":1,
-			\ "lua":1,
-			\ "perl":1,
-			\ "perl6":1,
-			\ "php":1,
-			\ "ruby":1,
-			\ "rust":1,
-			\ "erlang":1,
-			\ "asm":1,
-			\ "nasm":1,
-			\ "masm":1,
-			\ "tasm":1,
-			\ "asm68k":1,
-			\ "asmh8300":1,
-			\ "asciidoc":1,
-			\ "basic":1,
-			\ "vb":1,
-			\ "make":1,
-			\ "cmake":1,
-			\ "html":1,
-			\ "css":1,
-			\ "less":1,
-			\ "json":1,
-			\ "cson":1,
-			\ "typedscript":1,
-			\ "haskell":1,
-			\ "lhaskell":1,
-			\ "lisp":1,
-			\ "scheme":1,
-			\ "sdl":1,
-			\ "sh":1,
-			\ "zsh":1,
-			\ "bash":1,
-			\ "man":1,
-			\ "markdown":1,
-			\ "matlab":1,
-			\ "maxima":1,
-			\ "dosini":1,
-			\ "conf":1,
-			\ "config":1,
-			\ "zimbu":1,
-			\ "ps1":1,
-			\ }
+"let g:ycm_filetype_whitelist = { 
+"			\ "c":1,
+"			\ "cpp":1, 
+"			\ "objc":1,
+"			\ "objcpp":1,
+"			\ "python":1,
+"			\ "java":1,
+"			\ "javascript":1,
+"			\ "coffee":1,
+""			\ "vim":1, 
+"			\ "go":1,
+"			\ "cs":1,
+"			\ "lua":1,
+"			\ "perl":1,
+"			\ "perl6":1,
+"			\ "php":1,
+"			\ "ruby":1,
+"			\ "rust":1,
+"			\ "erlang":1,
+"			\ "asm":1,
+"			\ "nasm":1,
+"			\ "masm":1,
+"			\ "tasm":1,
+"			\ "asm68k":1,
+"			\ "asmh8300":1,
+"			\ "asciidoc":1,
+"			\ "basic":1,
+"			\ "vb":1,
+"			\ "make":1,
+"			\ "cmake":1,
+"			\ "html":1,
+"			\ "css":1,
+"			\ "less":1,
+"			\ "json":1,
+"			\ "cson":1,
+"			\ "typedscript":1,
+"			\ "haskell":1,
+"			\ "lhaskell":1,
+"			\ "lisp":1,
+"			\ "scheme":1,
+"			\ "sdl":1,
+"			\ "sh":1,
+"			\ "zsh":1,
+"			\ "bash":1,
+"			\ "man":1,
+"			\ "markdown":1,
+"			\ "matlab":1,
+"			\ "maxima":1,
+"			\ "dosini":1,
+"			\ "conf":1,
+"			\ "config":1,
+"			\ "zimbu":1,
+"			\ "ps1":1,
+"			\ }
+
 
 
