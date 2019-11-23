@@ -289,4 +289,38 @@ set guitablabel=%{Vim_NeatGuiTabLabel()}
 set guitabtooltip=%{Vim_NeatGuiTabTip()}
 
 
+"----------------------------------------------------------------------
+" 标签栏最终设置
+"----------------------------------------------------------------------
+let g:startify_session_dir = '~/.vim/session'
+
+let g:startify_lists = [
+	  \ { 'type': 'files',     'header': ['   MRU']            },
+	  \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+	  \ { 'type': 'sessions',  'header': ['   Sessions']       },
+	  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+	  \ { 'type': 'commands',  'header': ['   Commands']       },
+	  \ ]
+
+"let g:startify_custom_header =
+"            \ startify#pad(split(system('echo "naive" | cowsay'), '\n'))
+let g:startify_custom_header = [
+			\'=================     ===============     ===============   ========  ========',
+            \'NNNNNNNN        NNNNNNNN                    iiii                                           ',
+            \'N:::::::N       N::::::N                   i::::i                                          ',
+            \'N::::::::N      N::::::N                    iiii                                           ',
+            \'N:::::::::N     N::::::N                                                                   ',
+            \'N::::::::::N    N::::::N  aaaaaaaaaaaaa   iiiiiiivvvvvvv           vvvvvvv eeeeeeeeeeee     ',
+            \'N:::::::::::N   N::::::N  a::::::::::::a  i:::::i v:::::v         v:::::vee::::::::::::ee   ',
+            \'N:::::::N::::N  N::::::N  aaaaaaaaa:::::a  i::::i  v:::::v       v:::::ve::::::eeeee:::::ee ',
+            \'N::::::N N::::N N::::::N           a::::a  i::::i   v:::::v     v:::::ve::::::e     e:::::e ',
+            \'N::::::N  N::::N:::::::N    aaaaaaa:::::a  i::::i    v:::::v   v:::::v e:::::::eeeee::::::e ',
+            \'N::::::N   N:::::::::::N  aa::::::::::::a  i::::i     v:::::v v:::::v  e:::::::::::::::::e ',
+            \'N::::::N    N::::::::::N a::::aaaa::::::a  i::::i      v:::::v:::::v   e::::::eeeeeeeeeee ',
+            \'N::::::N     N:::::::::Na::::a    a:::::a  i::::i       v:::::::::v    e:::::::e         ',
+            \'N::::::N      N::::::::Na::::a    a:::::a i::::::i       v:::::::v     e::::::::e        ',
+            \'N::::::N       N:::::::Na:::::aaaa::::::a i::::::i        v:::::v       e::::::::eeeeeeee',
+            \'N::::::N        N::::::N a::::::::::aa:::ai::::::i         v:::v         ee:::::::::::::e',
+            \'NNNNNNNN         NNNNNNN  aaaaaaaaaa  aaaaiiiiiiii          vvv            eeeeeeeeeeeeee  ',
+			\ ]
 

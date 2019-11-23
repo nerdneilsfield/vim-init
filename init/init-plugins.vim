@@ -311,7 +311,7 @@ if index(g:bundle_group, 'airline') >= 0
 	let g:airline_powerline_fonts = 0
 	let g:airline_exclude_preview = 1
 	let g:airline_section_b = '%n'
-	let g:airline_theme='deus'
+	let g:airline_theme='one'
 	let g:airline#extensions#branch#enabled = 0
 	let g:airline#extensions#syntastic#enabled = 0
 	let g:airline#extensions#fugitiveline#enabled = 0
@@ -326,7 +326,7 @@ endif
 if index(g:bundle_group, 'nerdtree') >= 0
 	Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-	let g:NERDTreeMinimalUI = 1
+	let g:NERDTreeMinimalUI = 0
 	let g:NERDTreeDirArrows = 1
 	let g:NERDTreeHijackNetrw = 0
 	noremap <space>nn :NERDTree<cr>
