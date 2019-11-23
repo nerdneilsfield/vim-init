@@ -179,7 +179,14 @@ noremap <silent> <leader>tq :tabclose<cr>
 noremap <silent> <leader>tn :tabnext<cr>
 noremap <silent> <leader>tp :tabprev<cr>
 noremap <silent> <leader>to :tabonly<cr>
-
+noremap <silent> <space><tab>n :tabnew<cr>
+noremap <silent> <space><tab>[ :tabprev<cr>
+noremap <silent> <space><tab>] :tabnext<cr>
+noremap <silent> <space><tab><tab> :tabnext<cr>
+noremap <silent> <space><tab>. :tabprev<cr>
+noremap <silent> <space><tab>x :tabclose<cr>
+noremap <silent> <space><tab>q :tabclose<cr>
+noremap <silent> <space><tab>o :tabonly<cr>
 
 " 左移 tab
 function! Tab_MoveLeft()
