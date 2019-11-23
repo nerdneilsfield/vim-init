@@ -380,4 +380,10 @@ else
 				\ '<root>' <cr>
 endif
 
+"----------------------------------------------------------------------
+" Change the background
+"----------------------------------------------------------------------
+noremap <silent><space>t<c-l> :set background=light <cr>
+noremap <silent><space>t<c-d> :set background=dark <cr>
+
 

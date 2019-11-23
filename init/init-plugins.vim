@@ -108,6 +108,9 @@ if index(g:bundle_group, 'basic') >= 0
 	" 一次性安装一大堆 colorscheme
 	Plug 'flazz/vim-colorschemes'
 	Plug 'haishanh/night-owl.vim'
+	Plug 'rakr/vim-one'
+
+	let g:airline_theme='one'
 	
 	if(has("termguicolors"))
 		set termguicolors 
@@ -485,15 +488,15 @@ endif
 
 " add golang lsp support
 " go get -u golang.org/x/tools/cmd/gopls
-if (executable('gopls'))
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'gopls',
-        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-        \ 'whitelist': ['go'],
-        \ })
-    autocmd BufWritePre *.go LspDocumentFormatSync
-endif
-
+"if (executable('gopls'))
+"    au User lsp_setup call lsp#register_server({
+"        \ 'name': 'gopls',
+"        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+"        \ 'whitelist': ['go'],
+"        \ })
+"    autocmd BufWritePre *.go LspDocumentFormatSync
+"endif
+"
 noremap <silent> <space>c<c-d>  :LspDefinition<cr>
 noremap <silent> <space>cd  :LspPeekDefinition<cr>
 noremap <silent> <space>c<c-D>  :LspDeclaration<cr>
