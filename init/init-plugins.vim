@@ -107,7 +107,11 @@ if index(g:bundle_group, 'basic') >= 0
 
 	" 一次性安装一大堆 colorscheme
 	Plug 'flazz/vim-colorschemes'
-
+	Plug 'haishanh/night-owl.vim'
+	
+	if(has("termguicolors"))
+		set termguicolors 
+	endif
 	" 支持库，给其他插件用的函数库
 	Plug 'xolox/vim-misc'
 
@@ -424,18 +428,19 @@ call deoplete#custom#source('deoplete-tabnine', 'rank', 999)
 "----------------------------------------------------------------------
 " ale: Vim LSP 客户端
 "----------------------------------------------------------------------
-"Plug 'dense-analysis/ale'
+"Plug 'dense-analysis/ale', {'as': 'ale-lsp'}
 "
 "call deoplete#custom#option('sources', {
-"\ '_': ['ale', ],
+"\ '_': ['ale', "deoplete-tabnine", "deoplete-vim-lsp"],
 "\})
-"
+""
 "let g:ale_cpp_ccls_init_options = {
 "\   'cache': {
 "\       'directory': '/tmp/ccls/cache'
 "\   }
 "\ }
-"----------------------------------------------------------------------
+"
+" ----------------------------------------------------------------------
 " deoplete-vim-lsp: vim lsp for deoplete
 "----------------------------------------------------------------------
 
@@ -456,6 +461,19 @@ if (executable('ccls'))
       \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
       \ })
 endif
+
+noremap <silent> <space>c<c-d>  :LspDefinition<cr>
+noremap <silent> <space>cd  :LspPeekDefinition<cr>
+noremap <silent> <space>c<c-D>  :LspDeclaration<cr>
+noremap <silent> <space>cD  :LspPeekDeclaration<cr>
+noremap <silent> <space>cr  :LspReference<cr>
+noremap <silent> <space>cR  :LspRename<cr>
+noremap <silent> <space>ci  :LspImplementation<cr>
+noremap <silent> <space>c<c-i>  :LspPeekImplementation<cr>
+noremap <silent> <space>cs  :LspWorkspaceSymbol<cr>
+noremap <silent> <space>cl  :LspDocumentSymbol<cr>
+"noremap <silent> <space>c
+
 
 "----------------------------------------------------------------------
 " echodoc：搭配 YCM/deoplete 在底部显示函数参数
@@ -480,21 +498,29 @@ if index(g:bundle_group, 'leaderf') >= 0
 
 		" ALT+n 打开 buffer 模糊匹配
 		let g:Lf_ShortcutB = '<m-n>'
-
+		
+		" <SPACE>+. doom emacs like config"
+		noremap <space>fr :LeaderfMru<cr>
+		" 
 		" CTRL+n 打开最近使用的文件 MRU，进行模糊匹配
-		noremap <c-n> :LeaderfMru<cr>
+		" noremap <c-n> :LeaderfMru<cr>
 
 		" ALT+p 打开函数列表，按 i 进入模糊匹配，ESC 退出
-		noremap <m-p> :LeaderfFunction!<cr>
+		noremap <space>sf :LeaderfFunction!<cr>
+		"noremap <m-p> :LeaderfFunction!<cr>
 
 		" ALT+SHIFT+p 打开 tag 列表，i 进入模糊匹配，ESC退出
-		noremap <m-P> :LeaderfBufTag!<cr>
+		"noremap <m-P> :LeaderfBufTag!<cr>
+		noremap <space>st :LeaderfBufTag!<cr>
 
+		noremap <space>< :LeaderfBuffer<cr>
+		noremap <space>bb :LeaderfBuffer<cr>
 		" ALT+n 打开 buffer 列表进行模糊匹配
-		noremap <m-n> :LeaderfBuffer<cr>
+		"noremap <m-n> :LeaderfBuffer<cr>
 
 		" 全局 tags 模糊匹配
-		noremap <m-m> :LeaderfTag<cr>
+		"noremap <m-m> :LeaderfTag<cr>
+		noremap <space>sm :LeaderfTag<cr>
 
 		" 最大历史文件保存 2048 个
 		let g:Lf_MruMaxFiles = 2048
