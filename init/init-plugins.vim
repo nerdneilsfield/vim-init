@@ -462,6 +462,15 @@ if (executable('ccls'))
       \ })
 endif
 
+if (executable('rls'))
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+
 noremap <silent> <space>c<c-d>  :LspDefinition<cr>
 noremap <silent> <space>cd  :LspPeekDefinition<cr>
 noremap <silent> <space>c<c-D>  :LspDeclaration<cr>
