@@ -462,6 +462,8 @@ if (executable('ccls'))
       \ })
 endif
 
+" add rust lsp support (nightly toolchain)
+" rustup component add rls rust-analysis rust-src
 if (executable('rls'))
     au User lsp_setup call lsp#register_server({
         \ 'name': 'rls',
@@ -469,6 +471,27 @@ if (executable('rls'))
         \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
         \ 'whitelist': ['rust'],
         \ })
+endif
+
+" add python lsp support
+" pip install python-language-server
+if (executable('pyls'))
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+" add golang lsp support
+" go get -u golang.org/x/tools/cmd/gopls
+if (executable('gopls'))
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd BufWritePre *.go LspDocumentFormatSync
 endif
 
 noremap <silent> <space>c<c-d>  :LspDefinition<cr>
