@@ -547,6 +547,7 @@ if index(g:bundle_group, 'leaderf') >= 0
 		" ALT+SHIFT+p 打开 tag 列表，i 进入模糊匹配，ESC退出
 		"noremap <m-P> :LeaderfBufTag!<cr>
 		noremap <space>st :LeaderfBufTag!<cr>
+		noremap <space>. :LeaderfFile<cr>
 
 		noremap <space>< :LeaderfBuffer<cr>
 		noremap <space>bb :LeaderfBuffer<cr>
