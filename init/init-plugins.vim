@@ -293,6 +293,9 @@ if index(g:bundle_group, 'filetypes') >= 0
 	" rust 语法增强
 	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
+	" Typescript support
+	Plug 'leafgarland/typescript-vim'
+	 
 	" vim org-mode 
 	Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
