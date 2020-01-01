@@ -500,10 +500,10 @@ endif
 "    autocmd BufWritePre *.go LspDocumentFormatSync
 "endif
 "
-noremap <silent> <space>c<c-d>  :LspDefinition<cr>
-noremap <silent> <space>cd  :LspPeekDefinition<cr>
-noremap <silent> <space>c<c-D>  :LspDeclaration<cr>
-noremap <silent> <space>cD  :LspPeekDeclaration<cr>
+noremap <silent> <space>cd  :LspDefinition<cr>
+noremap <silent> <space>c<c-d>  :LspPeekDefinition<cr>
+noremap <silent> <space>cD  :LspDeclaration<cr>
+noremap <silent> <space>c<c-D>  :LspPeekDeclaration<cr>
 noremap <silent> <space>cr  :LspReference<cr>
 noremap <silent> <space>cR  :LspRename<cr>
 noremap <silent> <space>ci  :LspImplementation<cr>

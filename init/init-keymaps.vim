@@ -53,7 +53,7 @@ function! g:ToggleNuMode()
   endif
 endfunc
 
-map <silent><leader><C-l> :call g:ToggleNuMode()<CR>
+map <silent><space>tl :call g:ToggleNuMode()<CR>
 
 
 "----------------------------------------------------------------------
